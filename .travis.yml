@@ -48,24 +48,15 @@ before_script:
 - sudo -E apt-get -y install mysql-server
 
 # 
-- MYSQL_PWD=$PW mysql -u root <<_EOF_
-- DELETE FROM mysql.user WHERE User='';
-- DELETE FROM mysql.user WHERE User='root' AND Host NOT IN ('localhost', '127.0.0.1', '::1');
-- DROP DATABASE IF EXISTS test;
-- DELETE FROM mysql.db WHERE Db='test' OR Db='test\\_%';
-- FLUSH PRIVILEGES;
-- _EOF_
+- MYSQL_PWD=$PW mysql -u root -e  "DELETE FROM mysql.user WHERE User='';DELETE FROM mysql.user WHERE User='root' AND Host NOT IN ('localhost', '127.0.0.1', '::1');DROP DATABASE IF EXISTS test;DELETE FROM mysql.db WHERE Db='test' OR Db='test\\_%';FLUSH PRIVILEGES;"
 
-- sudo mysql -u root -p$PW -t <<MYSQL_INPUT
-- CREATE User '$USER_NAME'@'localhost' IDENTIFIED BY '$PW';
-- GRANT ALL PRIVILEGES ON *.* TO '$USER_NAME'@'localhost' WITH GRANT OPTION;
-- MYSQL_INPUT
+- sudo mysql -u root -p$PW -e "CREATE User '$USER_NAME'@'localhost' IDENTIFIED BY '$PW'; GRANT ALL PRIVILEGES ON *.* TO '$USER_NAME'@'localhost' WITH GRANT OPTION;"
 
 #Allow remote access 
-- sudo mysql -u root -p$PW -t <<MYSQL_INPUTx
-- CREATE User '$USER_NAME'@'%' IDENTIFIED BY '$PW' ;
-- GRANT ALL PRIVILEGES ON *.* TO '$USER_NAME'@'%' WITH GRANT OPTION;
-- MYSQL_INPUTx
+#- sudo mysql -u root -p$PW -t <<MYSQL_INPUTx
+#- CREATE User '$USER_NAME'@'%' IDENTIFIED BY '$PW' ;
+#- GRANT ALL PRIVILEGES ON *.* TO '$USER_NAME'@'%' WITH GRANT OPTION;
+#- MYSQL_INPUTx
 
 
 - echo "Restarting MySQL..."
