@@ -5,7 +5,7 @@ dist: bionic
 language: java
 # jdk: oraclejdk8
 
-jdk: openjdk-8-jre
+#jdk: openjdk-8-jre
 
 cache:
   directories:  
@@ -33,14 +33,8 @@ before_script:
 
 # Install MySQL 8
 - echo "Installing MySQL 8..."
-
-#- sudo -E debconf-set-selections <<< "mysql-community-server mysql-community-server/re-root-pass password ax2"
-#- sudo -E debconf-set-selections <<< "mysql-community-server mysql-community-server/root-pass password ax2"
-#- sudo -E debconf-set-selections <<< "mysql-server mysql-server/root_password password ax2"
-#- sudo -E debconf-set-selections <<< "mysql-server mysql-server/root_password_again password ax2"
 - sudo -E apt-get -y install mysql-server
 
-# 
 # - mysql -u root -pax2  -e  "DELETE FROM mysql.user WHERE User='';DELETE FROM mysql.user WHERE User='root' AND Host NOT IN ('localhost', '127.0.0.1', '::1');DROP DATABASE IF EXISTS test;DELETE FROM mysql.db WHERE Db='test' OR Db='test\\_%';FLUSH PRIVILEGES;"
 - sudo mysql -u root -e "CREATE User 'dev'@'localhost' IDENTIFIED BY 'ax2'; GRANT ALL PRIVILEGES ON *.* TO 'dev'@'localhost' WITH GRANT OPTION;"
 - sudo mysql -u root -e "CREATE DATABASE mydb_test;"
