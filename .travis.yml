@@ -57,6 +57,7 @@ before_script:
 #- GRANT ALL PRIVILEGES ON *.* TO '$USER_NAME'@'%' WITH GRANT OPTION;
 #- MYSQL_INPUTx
 
+- sudo echo "port=3307" >> /etc/mysql/my.cnf
 
 - echo "Restarting MySQL..."
 - sudo service mysql restart

@@ -25,27 +25,27 @@ public class PersonFacadeTest {
     private static PersonFacade facade;
     private static EntityManagerFactory emf;
 
-//    @BeforeClass
-//    public static void setUpClass() {
-//        emf = EntityManagerFactoryCreator.getEntityManagerFactory(
-//                "pu",
-//                "jdbc:mysql://localhost:3307/mydb_test",
-//                "dev",
-//                "ax2",
-//                EntityManagerFactoryCreator.Strategy.DROP_AND_CREATE);
-//        facade = PersonFacade.getPersonFacade(emf);
-//    }
-    
     @BeforeClass
     public static void setUpClass() {
         emf = EntityManagerFactoryCreator.getEntityManagerFactory(
                 "pu",
-                "jdbc:mysql://localhost:3306/mydb_test",
+                "jdbc:mysql://localhost:3307/mydb_test",
                 "dev",
                 "ax2",
-                EntityManagerFactoryCreator.Strategy.CREATE);
+                EntityManagerFactoryCreator.Strategy.DROP_AND_CREATE);
         facade = PersonFacade.getPersonFacade(emf);
     }
+    
+//    @BeforeClass
+//    public static void setUpClass() {
+//        emf = EntityManagerFactoryCreator.getEntityManagerFactory(
+//                "pu",
+//                "jdbc:mysql://localhost:3306/mydb_test",
+//                "dev",
+//                "ax2",
+//                EntityManagerFactoryCreator.Strategy.CREATE);
+//        facade = PersonFacade.getPersonFacade(emf);
+//    }
 
     @Before
     public void setUp() {
