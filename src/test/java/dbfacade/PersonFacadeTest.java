@@ -25,11 +25,22 @@ public class PersonFacadeTest {
     private static PersonFacade facade;
     private static EntityManagerFactory emf;
 
+//    @BeforeClass
+//    public static void setUpClass() {
+//        emf = EntityManagerFactoryCreator.getEntityManagerFactory(
+//                "pu",
+//                "jdbc:mysql://localhost:3307/mydb_test",
+//                "dev",
+//                "ax2",
+//                EntityManagerFactoryCreator.Strategy.DROP_AND_CREATE);
+//        facade = PersonFacade.getPersonFacade(emf);
+//    }
+    
     @BeforeClass
     public static void setUpClass() {
         emf = EntityManagerFactoryCreator.getEntityManagerFactory(
                 "pu",
-                "jdbc:mysql://localhost:3307/mydb_test",
+                "jdbc:mysql://localhost:3306/mydb_test",
                 "dev",
                 "ax2",
                 EntityManagerFactoryCreator.Strategy.DROP_AND_CREATE);
@@ -46,9 +57,10 @@ public class PersonFacadeTest {
             em.persist(new Person("a2", "b2", "c2", "d2", "a2@b.dk"));
             em.getTransaction().commit();
         } finally {
-
+            em.close();
         }
     }
+
     @After
     public void tearDown() {
         EntityManager em = emf.createEntityManager();
@@ -57,7 +69,7 @@ public class PersonFacadeTest {
             em.createQuery("DELETE from Person").executeUpdate();
             em.getTransaction().commit();
         } finally {
-
+            em.close();
         }
     }
 
@@ -73,8 +85,8 @@ public class PersonFacadeTest {
     public void testGetPersons() {
         List<Person> persons = facade.getPersons();
         assertEquals(2, persons.size());
-        assertEquals("a",persons.get(0).getFirstName());
-        assertEquals("a2",persons.get(1).getFirstName());
+        assertEquals("a", persons.get(0).getFirstName());
+        assertEquals("a2", persons.get(1).getFirstName());
 
     }
 

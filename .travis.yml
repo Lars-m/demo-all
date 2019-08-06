@@ -1,3 +1,5 @@
+dist: bionic
+
 sudo: true
 
 language: java
@@ -14,13 +16,13 @@ services:
    - mysql
 
 before_script:
-  - wget https://repo.mysql.com//mysql-apt-config_0.8.13-1_all.deb
-  - sudo dpkg -i mysql-apt-config_0.8.13-1_all.deb
-  - sudo apt-get update 
+  #- wget https://repo.mysql.com//mysql-apt-config_0.8.13-1_all.deb
+  #- sudo dpkg -i mysql-apt-config_0.8.13-1_all.deb
+  #- sudo apt-get update 
   ##- sudo apt-get install mysql-server
-  - sudo systemctl restart mysql
-  - sudo mysql_upgrade
-  - mysql --version    
+#  - sudo systemctl restart mysql
+#  - sudo mysql_upgrade
+#  - mysql --version    
    
 before_install:
   - mysql -e 'CREATE DATABASE mydb_test;'
