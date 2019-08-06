@@ -64,8 +64,8 @@ before_script:
 #- sudo echo "port=3307" >> /etc/mysql/my.cnf
 ##- sudo chmod -rw /etc/mysql/mysql.conf.d/mysqld.cnf
 #- sudo echo "port=3307" >> /etc/mysql/mysql.conf.d/mysqld.cnf
-#- sudo sh -c 'echo "port=3307" >> /etc/mysql/mysql.conf.d/mysqld.cnf'
-- sudo sh -c 'echo "port=3307" >> /etc/mysql/my.cnf'
+- sudo sh -c 'echo "port=3307" >> /etc/mysql/mysql.conf.d/mysqld.cnf'
+#- sudo sh -c 'echo "port=3307" >> /etc/mysql/my.cnf'
 
 - echo "Restarting MySQL..."
 - sudo systemctl start mysql
