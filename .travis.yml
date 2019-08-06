@@ -58,9 +58,9 @@ before_script:
 #- MYSQL_INPUTx
 
 - sudo systemctl stop mysql
-- ls -l /etc/mysql/my.cnf
-- sudo chmod -rw /etc/mysql/my.cnf
-- sudo echo "port=3307" >> /etc/mysql/my.cnf
+#- ls -l /etc/mysql/my.cnf
+#- sudo chmod -rw /etc/mysql/my.cnf
+- sudo echo "port=3307" >> /etc/mysql/my.cnf.fallback
 
 - echo "Restarting MySQL..."
 - sudo systemctl start mysql
