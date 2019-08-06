@@ -58,6 +58,7 @@ before_script:
 #- MYSQL_INPUTx
 
 - sudo service mysql stop
+-- ls -l /etc/mysql/my.cnf
 - sudo chmod -rw /etc/mysql/my.cnf
 - sudo echo "port=3307" >> /etc/mysql/my.cnf
 
