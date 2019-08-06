@@ -21,7 +21,7 @@ before_script:
 #  - mysql --version    
 
 
-- export DEBIAN_FRONTEND="noninteractive";
+#- export DEBIAN_FRONTEND="noninteractive";
 #- PW="ax2"
 #- USER_NAME="dev"
 
@@ -49,13 +49,10 @@ before_script:
 
 - sudo systemctl stop mysql
 - sudo sh -c 'echo "port=3307" >> /etc/mysql/mysql.conf.d/mysqld.cnf'
-
-
 - echo "Restarting MySQL..."
 - sudo systemctl start mysql
-- mysql --version >> temp.txt
-- cat temp.txt
-- echo "Provisioning Complete"
+- mysql --version
+- echo "before_script Complete"
 after_script:   
 #before_install:
   #- mysql -e 'CREATE DATABASE mydb_test;'
