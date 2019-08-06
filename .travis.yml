@@ -1,10 +1,11 @@
 dist: bionic
 
-sudo: true
+#sudo: true
 
 language: java
 # jdk: oraclejdk8
-# jdk: openjdk-8-jre
+
+jdk: openjdk-8-jre
 
 cache:
   directories:  
@@ -17,9 +18,6 @@ services:
    - mysql
 
 before_script:
-  # - sudo mysql_upgrade
-#  - mysql --version    
-
 
 #- export DEBIAN_FRONTEND="noninteractive";
 #- PW="ax2"
@@ -47,12 +45,10 @@ before_script:
 - sudo mysql -u root -e "CREATE User 'dev'@'localhost' IDENTIFIED BY 'ax2'; GRANT ALL PRIVILEGES ON *.* TO 'dev'@'localhost' WITH GRANT OPTION;"
 - sudo mysql -u root -e "CREATE DATABASE mydb_test;"
 
+- echo Change the port to 3307 to mirror the local development setup
 - sudo systemctl stop mysql
 - sudo sh -c 'echo "port=3307" >> /etc/mysql/mysql.conf.d/mysqld.cnf'
 - echo "Restarting MySQL..."
 - sudo systemctl start mysql
 - mysql --version
 - echo "before_script Complete"
-after_script:   
-#before_install:
-  #- mysql -e 'CREATE DATABASE mydb_test;'
