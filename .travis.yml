@@ -68,7 +68,7 @@ before_script:
 - sudo sh -c 'echo "port=3307" >> /etc/mysql/my.cnf'
 
 - echo "Restarting MySQL..."
-- sudo systemctl restart mysql
+- sudo systemctl start mysql
 - mysql --version
 - echo "Provisioning Complete"
 after_script:   
