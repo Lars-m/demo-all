@@ -88,10 +88,19 @@ public class PersonFacadeTest {
     @Test
     public void testGetPersons() {
         List<Person> persons = facade.getPersons();
-        System.out.println("Persons: "+persons.size());
-        assertEquals(2, persons.size());
-        assertEquals("a", persons.get(0).getFirstName());
-        assertEquals("a2", persons.get(1).getFirstName());
+        int count = persons.size();
+        System.out.println("Persons: "+count);
+        assertEquals(2, count);
+        String fn1 = persons.get(0).getFirstName();
+        String fn2 = persons.get(1).getFirstName();
+        boolean namesAreDifferent = !fn1.equals(fn2);
+        boolean aWasFound = fn1.equals("a") || fn2.equals("a");
+        boolean bWasFound = fn1.equals("a2") || fn2.equals("a2");
+        assertTrue(bWasFound);
+        assertTrue(aWasFound);
+        assertTrue(namesAreDifferent);
+//        assertEquals("a", persons.get(0).getFirstName());
+//        assertEquals("a2", persons.get(1).getFirstName());
 
     }
 
