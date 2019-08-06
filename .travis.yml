@@ -57,11 +57,12 @@ before_script:
 #- GRANT ALL PRIVILEGES ON *.* TO '$USER_NAME'@'%' WITH GRANT OPTION;
 #- MYSQL_INPUTx
 
+- sudo service mysql stop
 - sudo chmod -rw /etc/mysql/my.cnf
 - sudo echo "port=3307" >> /etc/mysql/my.cnf
 
 - echo "Restarting MySQL..."
-- sudo service mysql restart
+- sudo service mysql start
 
 - echo "Provisioning Complete"
 after_script:   
