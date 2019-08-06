@@ -27,8 +27,8 @@ before_script:
 
 
 - export DEBIAN_FRONTEND="noninteractive";
-- PW="ax2"
-- USER_NAME="dev"
+#- PW="ax2"
+#- USER_NAME="dev"
 
 
 - sudo apt-get update
@@ -41,16 +41,16 @@ before_script:
 # Install MySQL 8
 - echo "Installing MySQL 8..."
 
-- sudo -E debconf-set-selections <<< "mysql-community-server mysql-community-server/re-root-pass password $PW"
-- sudo -E debconf-set-selections <<< "mysql-community-server mysql-community-server/root-pass password $PW"
-- sudo -E debconf-set-selections <<< "mysql-server mysql-server/root_password password $PW"
-- sudo -E debconf-set-selections <<< "mysql-server mysql-server/root_password_again password $PW"
+- sudo -E debconf-set-selections <<< "mysql-community-server mysql-community-server/re-root-pass password ax2"
+- sudo -E debconf-set-selections <<< "mysql-community-server mysql-community-server/root-pass password ax2"
+- sudo -E debconf-set-selections <<< "mysql-server mysql-server/root_password password ax2"
+- sudo -E debconf-set-selections <<< "mysql-server mysql-server/root_password_again password ax2"
 - sudo -E apt-get -y install mysql-server
 
 # 
-- MYSQL_PWD=$PW mysql -u root -e  "DELETE FROM mysql.user WHERE User='';DELETE FROM mysql.user WHERE User='root' AND Host NOT IN ('localhost', '127.0.0.1', '::1');DROP DATABASE IF EXISTS test;DELETE FROM mysql.db WHERE Db='test' OR Db='test\\_%';FLUSH PRIVILEGES;"
+- mysql -u -pax2 root -e  "DELETE FROM mysql.user WHERE User='';DELETE FROM mysql.user WHERE User='root' AND Host NOT IN ('localhost', '127.0.0.1', '::1');DROP DATABASE IF EXISTS test;DELETE FROM mysql.db WHERE Db='test' OR Db='test\\_%';FLUSH PRIVILEGES;"
 
-- sudo mysql -u root -p$PW -e "CREATE User '$USER_NAME'@'localhost' IDENTIFIED BY '$PW'; GRANT ALL PRIVILEGES ON *.* TO '$USER_NAME'@'localhost' WITH GRANT OPTION;"
+- sudo mysql -u root -pax2 -e "CREATE User '$USER_NAME'@'localhost' IDENTIFIED BY 'ax2'; GRANT ALL PRIVILEGES ON *.* TO 'dev'@'localhost' WITH GRANT OPTION;"
 
 #Allow remote access 
 #- sudo mysql -u root -p$PW -t <<MYSQL_INPUTx
