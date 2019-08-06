@@ -3,7 +3,8 @@
 sudo: true
 
 language: java
-jdk: oraclejdk8
+# jdk: oraclejdk8
+jdk: openjdk-8-jre
 
 cache:
   directories:
@@ -15,7 +16,7 @@ script:
 services:
    - mysql
 
-# before_script:
+before_script:
   #- wget https://repo.mysql.com//mysql-apt-config_0.8.13-1_all.deb
   #- sudo dpkg -i mysql-apt-config_0.8.13-1_all.deb
   #- sudo apt-get update 
@@ -23,6 +24,54 @@ services:
 #  - sudo systemctl restart mysql
 #  - sudo mysql_upgrade
 #  - mysql --version    
+
+
+- DEBIAN_FRONTEND="noninteractive"
+- PW="ax2"
+- USER_NAME="dev"
+
+
+- sudo apt-get update
+- sudo apt-get install -y debconf-utils
+- sudo debconf-set-selections <<< 'mysql-apt-config mysql-apt-config/select-server select mysql-8.0'
+- wget https://dev.mysql.com/get/mysql-apt-config_0.8.13-1_all.deb
+- sudo -E dpkg -i mysql-apt-config_0.8.13-1_all.deb
+- sudo apt-get update
+
+# Install MySQL 8
+- echo "Installing MySQL 8..."
+
+- sudo -E debconf-set-selections <<< "mysql-community-server mysql-community-server/re-root-pass password $PW"
+- sudo -E debconf-set-selections <<< "mysql-community-server mysql-community-server/root-pass password $PW"
+- sudo -E debconf-set-selections <<< "mysql-server mysql-server/root_password password $PW"
+- sudo -E debconf-set-selections <<< "mysql-server mysql-server/root_password_again password $PW"
+- sudo -E apt-get -y install mysql-server
+
+# 
+- MYSQL_PWD=$PW mysql -u root <<_EOF_
+- DELETE FROM mysql.user WHERE User='';
+- DELETE FROM mysql.user WHERE User='root' AND Host NOT IN ('localhost', '127.0.0.1', '::1');
+- DROP DATABASE IF EXISTS test;
+- DELETE FROM mysql.db WHERE Db='test' OR Db='test\\_%';
+- FLUSH PRIVILEGES;
+- _EOF_
+
+- sudo mysql -u root -p$PW -t <<MYSQL_INPUT
+- CREATE User '$USER_NAME'@'localhost' IDENTIFIED BY '$PW';
+- GRANT ALL PRIVILEGES ON *.* TO '$USER_NAME'@'localhost' WITH GRANT OPTION;
+- MYSQL_INPUT
+
+#Allow remote access 
+- sudo mysql -u root -p$PW -t <<MYSQL_INPUTx
+- CREATE User '$USER_NAME'@'%' IDENTIFIED BY '$PW' ;
+- GRANT ALL PRIVILEGES ON *.* TO '$USER_NAME'@'%' WITH GRANT OPTION;
+- MYSQL_INPUTx
+
+
+- echo "Restarting MySQL..."
+- sudo service mysql restart
+
+- echo "Provisioning Complete"
    
 before_install:
   - mysql -e 'CREATE DATABASE mydb_test;'
