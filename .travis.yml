@@ -69,7 +69,7 @@ before_script:
 
 - echo "Restarting MySQL..."
 - sudo systemctl restart mysql
-
+- mysql --version
 - echo "Provisioning Complete"
 after_script:   
 #before_install:
