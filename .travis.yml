@@ -17,12 +17,7 @@ services:
    - mysql
 
 before_script:
-  #- wget https://repo.mysql.com//mysql-apt-config_0.8.13-1_all.deb
-  #- sudo dpkg -i mysql-apt-config_0.8.13-1_all.deb
-  #- sudo apt-get update 
-  ##- sudo apt-get install mysql-server
-#  - sudo systemctl restart mysql
-#  - sudo mysql_upgrade
+  # - sudo mysql_upgrade
 #  - mysql --version    
 
 
@@ -51,25 +46,15 @@ before_script:
 # - mysql -u root -pax2  -e  "DELETE FROM mysql.user WHERE User='';DELETE FROM mysql.user WHERE User='root' AND Host NOT IN ('localhost', '127.0.0.1', '::1');DROP DATABASE IF EXISTS test;DELETE FROM mysql.db WHERE Db='test' OR Db='test\\_%';FLUSH PRIVILEGES;"
 - sudo mysql -u root -e "CREATE User 'dev'@'localhost' IDENTIFIED BY 'ax2'; GRANT ALL PRIVILEGES ON *.* TO 'dev'@'localhost' WITH GRANT OPTION;"
 - sudo mysql -u root -e "CREATE DATABASE mydb_test;"
-#Allow remote access 
-#- sudo mysql -u root -p$PW -t <<MYSQL_INPUTx
-#- CREATE User '$USER_NAME'@'%' IDENTIFIED BY '$PW' ;
-#- GRANT ALL PRIVILEGES ON *.* TO '$USER_NAME'@'%' WITH GRANT OPTION;
-#- MYSQL_INPUTx
 
 - sudo systemctl stop mysql
-
-#- ls -l /etc/mysql/my.cnf
-#- sudo chmod -rw /etc/mysql/my.cnf
-#- sudo echo "port=3307" >> /etc/mysql/my.cnf
-##- sudo chmod -rw /etc/mysql/mysql.conf.d/mysqld.cnf
-#- sudo echo "port=3307" >> /etc/mysql/mysql.conf.d/mysqld.cnf
 - sudo sh -c 'echo "port=3307" >> /etc/mysql/mysql.conf.d/mysqld.cnf'
-#- sudo sh -c 'echo "port=3307" >> /etc/mysql/my.cnf'
+
 
 - echo "Restarting MySQL..."
 - sudo systemctl start mysql
-- mysql --version
+- mysql --version >> temp.txt
+- cat temp.txt
 - echo "Provisioning Complete"
 after_script:   
 #before_install:
