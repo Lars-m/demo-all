@@ -7,7 +7,7 @@ language: java
 # jdk: openjdk-8-jre
 
 cache:
-  directories:
+  directories:  
     - $HOME/.m2
 
 script:
@@ -57,6 +57,7 @@ before_script:
 #- GRANT ALL PRIVILEGES ON *.* TO '$USER_NAME'@'%' WITH GRANT OPTION;
 #- MYSQL_INPUTx
 
+- sudo service mysql stop
 - sudo echo "port=3307" >> /etc/mysql/my.cnf
 
 - echo "Restarting MySQL..."
