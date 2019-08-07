@@ -12,6 +12,10 @@
     <properties>
         <endorsed.dir>${project.build.directory}/endorsed</endorsed.dir>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+<!--        <remote.server>http://127.0.0.1/manager/text</remote.server>-->
+        <remote.server>http://167.71.57.117/manager/text</remote.server>
+        
+    
     </properties>
     
     <dependencies>
@@ -116,7 +120,20 @@
 
     <build>
         <plugins>
-                                
+            <plugin>
+                <groupId>org.apache.tomcat.maven</groupId>
+                <artifactId>tomcat7-maven-plugin</artifactId>
+                <version>2.2</version>
+                <configuration>
+                    <server>TomcatServer</server>
+                    <url>${remote.server}</url>
+                    <username>${remote.user}</username>
+                    <password>${remote.password}</password>
+                    <!-- <username>${env.TOMCAT_USER} </username>-->
+                    <!--  <password>${env.TOMCAT_PASSWORD}</password>-->
+                    <update>true</update>    
+                </configuration>  
+            </plugin>                   
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>

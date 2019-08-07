@@ -36,7 +36,7 @@ public class EntityManagerFactoryCreator {
 
         Properties props = new Properties();
         
-        //A test running on a different thread can alter values to use via properties
+        //A test running on a different thread can alter values to use via these properties
         System.out.println("IS Testing: " + System.getProperty("IS_TEST"));
         if (System.getProperty("IS_TEST") != null) {
             connection_str = System.getProperty("IS_TEST");
@@ -45,11 +45,27 @@ public class EntityManagerFactoryCreator {
         }
         
         //A deployment server MUST set the following values which will override the defaults
-        boolean isDeployed = (System.getenv("SERVER") != null);
+        System.out.println("DEPLOYED -->"+System.getenv("DEPLOYED"));
+        boolean isDeployed = (System.getenv("DEPLOYED") != null);
         if (isDeployed) {
-            user = System.getenv("USER") != null ? System.getenv("USER") : "";
-            pw = System.getenv("PW") != null ? System.getenv("PW") : "";
+            user = System.getenv("USER");
+            pw = System.getenv("PW");
+            connection_str = System.getenv("CONNECTION_STR");
         }
+        /*
+        On your server in /opt/tomcat/bin/setenv.sh   add the following WITH YOUR OWN VALUES
+        
+        export DEPLOYED="DEV_ON_DIGITAL_OCEAN"
+        export USER="dev"
+        export PW="ax2"
+        export CONNECTION_STR="jdbc:mysql://localhost:3306/mydb"
+        
+        Then save the file, and restart tomcat: sudo systemctl restart tomcat
+        */
+        
+        System.out.println("USER ------------> "+user);
+        System.out.println("PW --------------> "+pw);
+        System.out.println("CONNECTION STR---> "+connection_str);
         
         props.setProperty("javax.persistence.jdbc.user", user);
         props.setProperty("javax.persistence.jdbc.password", pw);

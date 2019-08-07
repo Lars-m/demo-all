@@ -24,6 +24,7 @@ public class PersonResource {
     private static EntityManagerFactory emf = EntityManagerFactoryCreator.getEntityManagerFactory(
             "pu",
             "jdbc:mysql://localhost:3307/mydb",
+            //"jdbc:mysql://localhost:3306/mydb",
             "dev",
             "ax2",
             EntityManagerFactoryCreator.Strategy.CREATE);

@@ -54,6 +54,7 @@ public class PersonApiTest {
 
         //Set property so server is using the same database
         System.setProperty("IS_TEST", TEST_DB);
+        //We are using the database on the virtual Vagrant image, so username password are the same for all dev-databases
         httpServer = startServer();
 
         //Setup RestAssured
