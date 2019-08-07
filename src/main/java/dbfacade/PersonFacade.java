@@ -49,5 +49,17 @@ public class PersonFacade {
         return persons;
     }
     
+    public Person getPerson(int id){
+         EntityManager em = emf.createEntityManager();
+         Person person;
+        try {
+            person = em.find(Person.class,id);
+        }
+        finally {
+            em.close();
+        }
+        return person;
+    }
+    
     
 }

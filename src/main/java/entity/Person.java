@@ -1,10 +1,12 @@
 package entity;
 
 import java.io.Serializable;
+import java.util.Date;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.Temporal;
 
 @Entity
 public class Person implements Serializable {
@@ -18,7 +20,14 @@ public class Person implements Serializable {
     private String address1;
     private String address2;
     private String email;
-
+    
+    @Temporal(javax.persistence.TemporalType.DATE)
+    private Date created;
+    
+    @Temporal(javax.persistence.TemporalType.DATE)
+    private Date lastEdited;
+    
+    
     public Person() {
     }
     
@@ -36,6 +45,8 @@ public class Person implements Serializable {
         this.address1 = a1;
         this.address2 = a2;
         this.email = email;
+        this.created = new Date();
+        this.lastEdited = new Date();
     }
 
     public String getFirstName() {
@@ -87,4 +98,10 @@ public class Person implements Serializable {
     public void setId(Integer id) {
         this.id = id;
     } 
+
+    @Override
+    public String toString() {
+        return "Person{" + "id=" + id + ", firstName=" + firstName + ", lastName=" + lastName + ", address1=" + address1 + ", address2=" + address2 + ", email=" + email + ", created=" + created + ", lastEdited=" + lastEdited + '}';
+    }
+    
 }

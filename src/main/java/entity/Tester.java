@@ -9,7 +9,7 @@ import javax.persistence.Persistence;
 
 public class Tester {
     public static void main(String[] args) {
-        //EntityManagerFactory emf = Persistence.createEntityManagerFactory("pu");
+        
         EntityManagerFactory emf = EntityManagerFactoryCreator.getEntityManagerFactory(
                 "pu", 
                 "jdbc:mysql://localhost:3307/mydb", 
@@ -22,7 +22,7 @@ public class Tester {
         
         List<Person> persons = facade.getPersons();
         for(Person p : persons){
-            System.out.println(p.getFirstName());
+            System.out.println(p);
         }
         
         
