@@ -78,7 +78,7 @@ public class PersonFacadeTest {
         //Observe we can't count on getting data in the same order as it was inserted
         String fn1 = persons.get(0).getFirstName();
         String fn2 = persons.get(1).getFirstName();
-        boolean namesAreDifferent = !fn1.equals(fn2);        
+        boolean namesAreDifferent = fn1.equals(fn2);        
         assertTrue("Expected two Person instances with different names",namesAreDifferent);
     }
 
